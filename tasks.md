@@ -23,7 +23,7 @@ not afterwards. "Spec" references point to sections of `spec.md`.
 
 | ID  | Task                                                                                                                               | Done when                                               |
 | --- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| 1.1 | Verify `requirements.txt`, `pytest.ini` and the Python/MCP/Pydantic/pytest environment; the brief suggests Python 3.11, while the current suite has been run on Python 3.12.10 | `pytest` runs with asyncio mode configured |
+| 1.1 | Verify `requirements.txt`, `pytest.ini` and the Python/MCP/Pydantic/pytest environment; the brief suggests Python 3.11, and final verification uses Python 3.13.14 in the repository virtual environment | `pytest` runs with asyncio mode configured |
 | 1.2 | Place `stock_snapshot.csv` and `dock_schedule.jsonl` under `data/`; create the `src/warehouse_mcp/` and `tests/` package skeletons | Package imports without error                           |
 | 1.3 | Add shared fixtures: fresh store per test, session context for each of the three sites, injectable clock                           | A test can start with a clean state for any site        |
 
@@ -103,7 +103,7 @@ involved; token misuse gives `CONFIRMATION_INVALID`.
 | 9.1 | Maintain `.vscode/mcp.json`: one server, one site per session; document how to switch site                                                                                            | Restarting with a different site value changes which site the agent can see |
 | 9.2 | Verify VS Code prompts for approval before state-changing tool calls; do not rely on an absent `.claude/settings.json`                                                                                                             | A write call requires the host's approval as well as the server confirmation flow                              |
 | 9.3 | `CLAUDE.md`: project workflow and safety rules                                                                                                                                 | Present and short                                                           |
-| 9.4 | Maintain `.claude/instructions/AGENT_INSTRUCTIONS.md` with ten tools, `list_exceptions`, the two-step token flow and nine error codes | No reference to a `confirmation: true` parameter or to seven codes remains  |
+| 9.4 | Maintain `AGENTS.md` with ten tools, `list_exceptions`, the two-step token flow and nine error codes | No reference to a `confirmation: true` parameter or to seven codes remains  |
 
 ## Phase 10: Runtime demonstration (plan section 8)
 
@@ -129,11 +129,11 @@ involved; token misuse gives `CONFIRMATION_INVALID`.
 | 12.2 | Answer the "challenge your own work" questions in writing, in particular: does lookup ever return one item when the data supports more, and does it ever ask when only one matches | Written answers ready for the submission-time questions |
 | 12.3 | Run `git log --stat` and verify the four ordered commits, spec commit containing only `spec.md`, and no source before `04-implement`                                                      | `evidence/git_log.txt` is saved; any history failure is reported, not rewritten                                           |
 
-## Current verification snapshot
+## Final verification snapshot (amended after the runs)
 
-- `python -m pytest -q`: 292 passed in the current environment.
-- The implementation, schemas, site scope, confirmation flow, errors and host config are
-  present. The protocol suite covers those behaviors.
-- `evidence/git_log.txt` records the actual history and the process gap.
-- Still outstanding: capture and commit the real VS Code agent transcript. The required
-  four-commit history is already absent and cannot be repaired safely in this task.
+- `python -m pytest -q`: 292 passed.
+- Runtime demonstration complete in Claude Code: `evidence/claude_code/agent_transcript.md`,
+  with screenshots, server logs and registration files. An earlier round in VS Code with
+  Copilot is archived in `evidence/archive_copilot/`.
+- `evidence/git_log.txt` records the commit history.
+- Nothing from the task list is outstanding.

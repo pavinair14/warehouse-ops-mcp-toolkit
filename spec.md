@@ -82,6 +82,10 @@ Ops asked for 5 tools. The toolkit has **10**: 4 read-only, 6 state-changing.
 - **All schemas set `additionalProperties: false`.**
 - **Write tools use a two-step flow** (Section 7). They accept an optional
   `confirmation_token`. A first call without a token never changes state.
+- **Optional audit log.** If `KESTREL_AUDIT_LOG` is set, the server appends one line per tool
+  call to that file: the tool, the step (`read`, `preview` or `commit`), the outcome and the
+  arguments, and never the token. It is for evidence and debugging and changes no behaviour.
+  A call that fails validation carries no token, so it is logged as `preview`.
 
 ### 4.1 `get_stock`
 
@@ -193,8 +197,10 @@ its description. Only the caller's site is searched.
 
 **Rules:**
 
-- Zero matches -> `NOT_FOUND` with a suggestion to drop generic words and keep
-  distinguishing words such as colour or size; if that still fails, ask for the SKU.
+- Zero matches -> `NOT_FOUND` with this `suggested_action`: "Try fewer or different
+  words. Every word must appear in the description, so drop generic words (such as
+  'rolls' or 'boxes') first and keep distinguishing words such as colour or size. If
+  that still finds nothing, ask the user for the SKU."
 - Never returns another site's products. A search for "edge board" at Leeds is
   `NOT_FOUND` and does not hint that Reading stocks it (a description is not an
   identifier, unlike a SKU in `get_stock`).
@@ -596,7 +602,7 @@ is harder for an agent to get wrong than a per-tool exception list.
 ## 9. Evidence and runtime requirements
 
 The implementation must register all ten tools in a real MCP server and exercise them
-through an MCP-compatible host (for this project, VS Code with GitHub Copilot). Evidence
+through an MCP-compatible host (for this project, Claude Code; an earlier round of demos used VS Code with GitHub Copilot). Evidence
 must include:
 
 - tool discovery and selection by the host

@@ -1,10 +1,10 @@
 # Warehouse Ops MCP Toolkit: Implementation Plan
 
-Implements the interface in `spec.md`, intended to be the `01-spec` artifact. The current repository history does not preserve the required commit sequence; that gap is recorded in section 11. This plan does not redesign the interface. If implementation exposes a genuine design flaw, `spec.md` is amended in a **separate, later commit** with the reason recorded; the original spec commit is never rewritten.
+Implements the interface in `spec.md`, which was intended to be the `01-spec` artifact. The current repository history does not preserve the required commit sequence; that gap is recorded in section 11. This plan does not redesign the interface. If implementation exposes a genuine design flaw, `spec.md` should be amended with the reason recorded.
 
 ## 1. Objective
 
-Deliver a working MCP server exposing the 10 tools in `spec.md` (4 read-only, 6 state-changing) over the supplied data, registered in an MCP-compatible agent host (the current project uses VS Code), with tests and runtime evidence showing:
+Deliver a working MCP server exposing the 10 tools in `spec.md` (4 read-only, 6 state-changing) over the supplied data, registered in an MCP-compatible agent host (initially VS Code, later Claude Code), with tests and runtime evidence showing:
 
 - schema-constrained inputs, with closed sets as enums, and actionable errors, including on schema rejection;
 - site scoping from trusted server context, with same-site access working and cross-site access refused;
@@ -14,7 +14,7 @@ Deliver a working MCP server exposing the 10 tools in `spec.md` (4 read-only, 6 
 
 ## 2. Technology
 
-Python 3.11 or newer, MCP Python SDK, Pydantic v2, pytest, pytest-asyncio, supplied CSV/JSONL as stub data. The suite has been run with Python 3.12.10. Agent host: VS Code, configured through `.vscode/mcp.json`.
+Python 3.11 or newer, MCP Python SDK, Pydantic v2, pytest, pytest-asyncio, supplied CSV/JSONL as stub data. The final suite run used Python 3.13.14 in the repository virtual environment. The first agent host was VS Code, configured through `.vscode/mcp.json`; the final recorded host was Claude Code.
 
 ## 3. Repository layout
 
@@ -158,16 +158,22 @@ used (the project config is `.vscode/mcp.json`), and save `git log --stat` to
 - After `04-implement`, further commits are fine (evidence, reflection, spec amendments
   with reasons).
 
-## 11. Current audit status
+## 11. Final status (amended after the runs)
 
-- The implementation and protocol test suite are present; the latest local run passed
-  292 tests.
-- The repository history does not show the required four named commits: the initial
-  spec commit also contains `plan.md` and `tasks.md`, and the implementation commit is
-  not named `04-implement`. This historical requirement cannot be corrected by editing
-  the current plan; do not rewrite published history.
-- `evidence/git_log.txt` now records the actual history, including the process gap. The
-  repository still has no `evidence/agent_transcript.md`; `.vscode/mcp.json` is the host
-  registration, but runtime transcript evidence remains to be captured.
-- `KESTREL_AUDIT_LOG` is not consumed by the server. `evidence/server_log.txt` must not
-  be presented as a server-generated audit trail until logging is implemented.
+This section replaces an earlier status note written before the final runs.
+
+- **Implementation and tests:** ten tools behind a real MCP server. `pytest` passes 292 tests
+  (`evidence/pytest_output.txt`).
+- **Host:** the project began in VS Code with GitHub Copilot (`.vscode/mcp.json`; logs
+  archived in `evidence/archive_copilot/`) and was later moved to Claude Code for the final
+  recorded run from an empty folder (`evidence/claude_code/`: transcript, screenshots,
+  server logs and registration files).
+- **Audit log:** `KESTREL_AUDIT_LOG` is implemented, and the logs under
+  `evidence/claude_code/logs/` were written by the server.
+- **History:** the required four-commit sequence is absent. The commit named `initial spec`
+  added `spec.md`, `plan.md` and `tasks.md` together; implementation files were added in a
+  later commit. This does not meet the process requirement. `REFLECTION.md` Section 8
+  records the same limitation.
+- **Design amendments:** listed in `CHANGES.md`, Part B and reflected in the current `spec.md`.
+- **Agent guidance:** `AGENTS.md`, with `CLAUDE.md` importing it, replaces the earlier
+  `.claude/instructions/AGENT_INSTRUCTIONS.md`.
