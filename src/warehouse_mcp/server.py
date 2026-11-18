@@ -1,5 +1,7 @@
 import asyncio
 import json
+import logging
+import os
 import sys
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -47,6 +49,8 @@ INSTRUCTIONS = (
     "A quantity of 0 is a valid answer. Never invent SKUs, bins, slots or IDs. "
     "Errors say what to do next: follow suggested_action and do not repeat an invalid call."
 )
+
+logger = logging.getLogger("kestrel.audit")
 
 
 @dataclass(frozen=True)
@@ -238,8 +242,18 @@ def create_server(ctx: SessionContext, store: Store | None = None) -> Server:
         return types.ListToolsResult(tools=[_to_mcp_tool(t) for t in TOOLS])
 
     async def on_call_tool(_ctx, params) -> types.CallToolResult:
+        raw = dict(params.arguments or {})
+        has_token = "confirmation_token" in raw
+        shown = {k: v for k, v in raw.items() if k != "confirmation_token"}
+        spec = by_name.get(params.name)
+        if spec is None:
+            step = "unknown"
+        elif spec.read_only:
+            step = "read"
+        else:
+            step = "commit" if has_token else "preview"
+        outcome = "unexpected_error"
         try:
-            spec = by_name.get(params.name)
             if spec is None:
                 raise ToolError(
                     ErrorCode.INVALID_ARGUMENT,
@@ -255,9 +269,19 @@ def create_server(ctx: SessionContext, store: Store | None = None) -> Server:
                 payload = spec.handler(scope, args)
             else:
                 payload = spec.handler(confirmations, scope, args)
+            outcome = "ok"
             return _result(payload, is_error=False)
         except ToolError as err:
+            outcome = err.code.value
             return _result(err.to_envelope(), is_error=True)
+        finally:
+            logger.info(
+                "tool=%s step=%s outcome=%s args=%s",
+                params.name,
+                step,
+                outcome,
+                json.dumps(shown, default=str),
+            )
 
     return Server(
         "kestrel-warehouse",
@@ -269,6 +293,13 @@ def create_server(ctx: SessionContext, store: Store | None = None) -> Server:
 
 
 async def run() -> None:
+    handlers: list[logging.Handler] = [logging.StreamHandler(sys.stderr)]
+    log_path = os.environ.get("KESTREL_AUDIT_LOG")
+    if log_path:
+        handlers.append(logging.FileHandler(log_path, encoding="utf-8"))
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s %(message)s", handlers=handlers
+    )
     ctx = load_context()
     server = create_server(ctx)
     async with stdio_server() as (read, write):
