@@ -1,0 +1,25 @@
+2026-11-17 12:19:48,116 tool=search_stock step=read outcome=ok args={"query": "void fill"}
+2026-11-17 14:16:17,309 tool=search_stock step=read outcome=ok args={"query": "pallet wrap"}
+2026-11-17 14:16:49,806 tool=get_stock step=read outcome=ok args={"sku": "SKU-8802"}
+2026-11-17 14:46:47,047 tool=get_stock step=read outcome=SITE_ACCESS_DENIED args={"sku": "SKU-8805"}
+2026-11-17 14:53:45,116 tool=list_dock_slots step=read outcome=ok args={"date": "2026-04-08", "status": "available"}
+2026-11-17 14:57:04,434 tool=book_dock_slot step=preview outcome=CONFIRMATION_REQUIRED args={"date": "2026-04-08", "slot": "10:00", "carrier": "Northbound"}
+2026-11-17 14:58:36,250 tool=book_dock_slot step=commit outcome=ok args={"date": "2026-04-08", "slot": "10:00", "carrier": "Northbound"}
+2026-11-17 15:16:37,165 tool=list_dock_slots step=read outcome=NOT_FOUND args={"date": "2026-11-17", "status": "all"}
+2026-11-17 15:18:41,231 tool=list_dock_slots step=read outcome=ok args={"date": "2026-04-08", "status": "all"}
+2026-11-17 15:28:42,381 tool=book_dock_slot step=preview outcome=SLOT_ALREADY_BOOKED args={"date": "2026-04-08", "slot": "08:00", "carrier": "Northbound Freight"}
+2026-11-17 15:40:23,966 tool=book_dock_slot step=preview outcome=INVALID_ARGUMENT args={"date": "2026-04-08", "slot": "11:00", "carrier": "Northbound Freight"}
+2026-11-17 15:45:34,168 tool=cancel_dock_booking step=preview outcome=CONFIRMATION_REQUIRED args={"date": "2026-04-08", "slot": "12:00"}
+2026-11-17 15:46:01,448 tool=cancel_dock_booking step=commit outcome=ok args={"date": "2026-04-08", "slot": "12:00"}
+2026-11-17 15:48:51,839 tool=move_stock step=preview outcome=INSUFFICIENT_STOCK args={"sku": "SKU-8801", "from_bin": "A-12-3", "to_bin": "A-13-1", "quantity": 500}
+2026-11-17 15:49:19,972 tool=move_stock step=preview outcome=CONFIRMATION_REQUIRED args={"sku": "SKU-8801", "from_bin": "A-12-3", "to_bin": "A-13-1", "quantity": 20}
+2026-11-17 15:49:34,220 tool=move_stock step=commit outcome=ok args={"sku": "SKU-8801", "from_bin": "A-12-3", "to_bin": "A-13-1", "quantity": 20}
+2026-11-17 15:53:17,455 tool=search_stock step=read outcome=ok args={"query": "black pallet wrap"}
+2026-11-17 15:53:52,554 tool=correct_stock step=preview outcome=CONFIRMATION_REQUIRED args={"sku": "SKU-8802", "bin": "A-12-4", "corrected_quantity": 175, "reason": "Recount after delivery"}
+2026-11-17 15:54:02,155 tool=correct_stock step=commit outcome=ok args={"sku": "SKU-8802", "bin": "A-12-4", "corrected_quantity": 175, "reason": "Recount after delivery"}
+2026-11-17 16:03:26,352 tool=raise_exception step=preview outcome=CONFIRMATION_REQUIRED args={"category": "damaged", "sku": "SKU-8802", "description": "Black pallet wrap rolls have torn outer layer"}
+2026-11-17 16:04:10,600 tool=raise_exception step=commit outcome=ok args={"category": "damaged", "sku": "SKU-8802", "description": "Black pallet wrap rolls have torn outer layer"}
+2026-11-17 16:10:21,020 tool=list_exceptions step=read outcome=ok args={"status": "open"}
+2026-11-17 16:10:55,335 tool=close_exception step=preview outcome=CONFIRMATION_REQUIRED args={"exception_id": "EX-001", "resolution_note": "Damaged rolls replaced"}
+2026-11-17 16:11:22,203 tool=close_exception step=commit outcome=ok args={"exception_id": "EX-001", "resolution_note": "Damaged rolls replaced"}
+2026-11-17 16:13:08,695 tool=close_exception step=preview outcome=ALREADY_CLOSED args={"exception_id": "EX-001", "resolution_note": "second try"}

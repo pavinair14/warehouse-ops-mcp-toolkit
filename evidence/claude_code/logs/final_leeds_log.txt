@@ -1,0 +1,2 @@
+2026-11-18 05:40:56,894 tool=get_stock step=read outcome=ok args={"sku": "SKU-8801"}
+2026-11-18 05:42:11,655 tool=get_stock step=read outcome=SITE_ACCESS_DENIED args={"sku": "SKU-8805"}

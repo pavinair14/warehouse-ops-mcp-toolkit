@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "kestrel-warehouse": {
+      "command": "C:/Users/p.muthumanickam/OneDrive - Perficient, Inc/Documents/warehouse-ops-mcp-toolkit/.venv/Scripts/python.exe",
+      "args": ["-m", "warehouse_mcp.server"],
+      "env": {
+        "PYTHONPATH": "C:/Users/p.muthumanickam/OneDrive - Perficient, Inc/Documents/warehouse-ops-mcp-toolkit/src",
+        "KESTREL_CALLER_ID": "ops.leeds.01",
+        "KESTREL_ASSIGNED_SITE": "LEEDS-01",
+        "KESTREL_AUDIT_LOG": "C:/Users/p.muthumanickam/kestrel-claude-demo/final_leeds_log.txt"
+      }
+    }
+  }
+}

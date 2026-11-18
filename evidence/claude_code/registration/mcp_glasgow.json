@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "kestrel-warehouse": {
+      "command": "C:/Users/p.muthumanickam/OneDrive - Perficient, Inc/Documents/warehouse-ops-mcp-toolkit/.venv/Scripts/python.exe",
+      "args": ["-m", "warehouse_mcp.server"],
+      "env": {
+        "PYTHONPATH": "C:/Users/p.muthumanickam/OneDrive - Perficient, Inc/Documents/warehouse-ops-mcp-toolkit/src",
+        "KESTREL_CALLER_ID": "ops.glasgow.01",
+        "KESTREL_ASSIGNED_SITE": "GLASGOW-03",
+        "KESTREL_AUDIT_LOG": "C:/Users/p.muthumanickam/kestrel-claude-demo/claude_code_glasgow_log.txt"
+      }
+    }
+  }
+}

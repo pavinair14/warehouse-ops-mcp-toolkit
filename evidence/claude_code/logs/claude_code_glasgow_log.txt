@@ -1,0 +1,2 @@
+2026-11-17 16:31:04,119 tool=search_stock step=read outcome=ok args={"query": "600mm shrink film"}
+2026-11-17 16:31:27,184 tool=get_stock step=read outcome=SITE_ACCESS_DENIED args={"sku": "SKU-8801"}

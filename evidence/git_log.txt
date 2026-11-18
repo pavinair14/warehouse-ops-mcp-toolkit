@@ -1,0 +1,60 @@
+﻿--- 1ebf705 01-spec 2026-11-15 13:03:44 +0530
+
+ spec.md | 614 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 614 insertions(+)
+--- 394a01b 02-plan 2026-11-15 14:29:03 +0530
+
+ plan.md | 173 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 173 insertions(+)
+--- 6a268a1 03-tasks 2026-11-15 18:29:21 +0530
+
+ tasks.md | 139 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 139 insertions(+)
+--- 484b35e 04-implement 2026-11-16 19:50:10 +0530
+
+ .gitignore                                     |   4 +
+ L2_Case04_Warehouse_Ops_MCP_Toolkit_Brief.docx | Bin 0 -> 78757 bytes
+ REFLECTION.md                                  |  33 +++
+ criteria_checklist.md                          |  55 +++++
+ data/dock_schedule.jsonl                       |  18 ++
+ data/stock_snapshot.csv                        |  17 ++
+ data/tool_specification.md                     |  50 ++++
+ pytest.ini                                     |   4 +
+ requirements.txt                               |   4 +
+ src/warehouse_mcp/confirm.py                   | 126 ++++++++++
+ src/warehouse_mcp/context.py                   |  31 +++
+ src/warehouse_mcp/errors.py                    |  48 ++++
+ src/warehouse_mcp/models.py                    |  78 ++++++
+ src/warehouse_mcp/scope.py                     | 125 ++++++++++
+ src/warehouse_mcp/search.py                    |  32 +++
+ src/warehouse_mcp/server.py                    | 287 ++++++++++++++++++++++
+ src/warehouse_mcp/store.py                     |  53 ++++
+ src/warehouse_mcp/tools/dock.py                | 204 ++++++++++++++++
+ src/warehouse_mcp/tools/exceptions.py          | 121 +++++++++
+ src/warehouse_mcp/tools/stock.py               | 294 ++++++++++++++++++++++
+ src/warehouse_mcp/validate.py                  |  73 ++++++
+ starter/PROCESS.md                             |  33 +++
+ tests/conftest.py                              |  23 ++
+ tests/helpers.py                               |  45 ++++
+ tests/test_book_dock_slot.py                   | 158 ++++++++++++
+ tests/test_cancel_dock_booking.py              | 164 +++++++++++++
+ tests/test_close_exception.py                  | 284 ++++++++++++++++++++++
+ tests/test_confirm.py                          | 201 +++++++++++++++
+ tests/test_context.py                          |  32 +++
+ tests/test_correct_stock.py                    | 217 +++++++++++++++++
+ tests/test_error_shape.py                      |  82 +++++++
+ tests/test_errors.py                           |  29 +++
+ tests/test_get_stock.py                        |  61 +++++
+ tests/test_list_dock_slots.py                  |  79 ++++++
+ tests/test_list_exceptions.py                  |  68 ++++++
+ tests/test_models.py                           |  76 ++++++
+ tests/test_move_stock.py                       | 283 +++++++++++++++++++++
+ tests/test_raise_exception.py                  | 207 ++++++++++++++++
+ tests/test_scope.py                            |  94 +++++++
+ tests/test_search.py                           |  55 +++++
+ tests/test_search_stock.py                     |  84 +++++++
+ tests/test_server_read_tools.py                | 145 +++++++++++
+ tests/test_server_write_tools.py               | 324 +++++++++++++++++++++++++
+ tests/test_store.py                            |  41 ++++
+ tests/test_validate.py                         | 110 +++++++++
+ 45 files changed, 4552 insertions(+)
