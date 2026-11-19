@@ -58,3 +58,67 @@
  tests/test_store.py                            |  41 ++++
  tests/test_validate.py                         | 110 +++++++++
  45 files changed, 4552 insertions(+)
+--- b6a8274 05-audit-log: optional server audit log 2026-11-18 10:33:26 +0530
+
+ src/warehouse_mcp/server.py | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
+--- e83f214 06-amendments: align spec, plan and tasks with the built toolkit; reasons in CHANGES.md 2026-11-19 00:19:07 +0530
+
+ CHANGES.md | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ plan.md    | 38 ++++++++++++++-----------
+ spec.md    | 12 ++++++--
+ tasks.md   | 18 ++++++------
+ 4 files changed, 134 insertions(+), 28 deletions(-)
+--- 85a3e86 07-evidence-and-docs: Claude Code run, reflection, agent instructions, README 2026-11-19 01:04:15 +0530
+
+ AGENTS.md                                          | 107 +++++++
+ CLAUDE.md                                          |   1 +
+ README.md                                          | 113 ++++++++
+ REFLECTION.md                                      | 233 ++++++++++++++--
+ evidence/archive_copilot/log_1_correction.txt      |   3 +
+ .../log_2_exceptions_before_fix.txt                |   9 +
+ .../archive_copilot/log_3_exceptions_after_fix.txt |   8 +
+ .../archive_copilot/log_4_glasgow_clean_folder.txt |   2 +
+ evidence/claude_code/agent_transcript.md           | 215 ++++++++++++++
+ .../claude_code/logs/claude_code_glasgow_log.txt   |   2 +
+ evidence/claude_code/logs/claude_code_log.txt      |  25 ++
+ evidence/claude_code/logs/final_glasgow_log.txt    |   1 +
+ evidence/claude_code/logs/final_leeds_log.txt      |   2 +
+ evidence/claude_code/registration/mcp_glasgow.json |  14 +
+ evidence/claude_code/registration/mcp_leeds.json   |  14 +
+ .../claude_code/registration/mcp_leeds_final.json  |  14 +
+ evidence/claude_code/screenshots/final_leeds_a.png | Bin 0 -> 38155 bytes
+ evidence/claude_code/screenshots/final_leeds_b.png | Bin 0 -> 29529 bytes
+ .../claude_code/screenshots/final_prompt15.png     | Bin 0 -> 36389 bytes
+ evidence/claude_code/screenshots/prompt1.png       | Bin 0 -> 33916 bytes
+ evidence/claude_code/screenshots/prompt10a.png     | Bin 0 -> 44396 bytes
+ evidence/claude_code/screenshots/prompt10b.png     | Bin 0 -> 61936 bytes
+ evidence/claude_code/screenshots/prompt10c.png     | Bin 0 -> 30807 bytes
+ evidence/claude_code/screenshots/prompt11a.png     | Bin 0 -> 42136 bytes
+ evidence/claude_code/screenshots/prompt11b.png     | Bin 0 -> 65302 bytes
+ evidence/claude_code/screenshots/prompt11c.png     | Bin 0 -> 31533 bytes
+ evidence/claude_code/screenshots/prompt12a.png     | Bin 0 -> 56104 bytes
+ evidence/claude_code/screenshots/prompt12b.png     | Bin 0 -> 34267 bytes
+ evidence/claude_code/screenshots/prompt13a.png     | Bin 0 -> 36630 bytes
+ evidence/claude_code/screenshots/prompt13b.png     | Bin 0 -> 79663 bytes
+ evidence/claude_code/screenshots/prompt13c.png     | Bin 0 -> 39161 bytes
+ evidence/claude_code/screenshots/prompt13d.png     | Bin 0 -> 43182 bytes
+ evidence/claude_code/screenshots/prompt14a.png     | Bin 0 -> 43864 bytes
+ evidence/claude_code/screenshots/prompt14b.png     | Bin 0 -> 31462 bytes
+ evidence/claude_code/screenshots/prompt2a.png      | Bin 0 -> 36527 bytes
+ evidence/claude_code/screenshots/prompt2b.png      | Bin 0 -> 24244 bytes
+ evidence/claude_code/screenshots/prompt3.png       | Bin 0 -> 24782 bytes
+ evidence/claude_code/screenshots/prompt4.png       | Bin 0 -> 32522 bytes
+ evidence/claude_code/screenshots/prompt5a.png      | Bin 0 -> 40114 bytes
+ evidence/claude_code/screenshots/prompt5b.png      | Bin 0 -> 22694 bytes
+ evidence/claude_code/screenshots/prompt6.png       | Bin 0 -> 7506 bytes
+ evidence/claude_code/screenshots/prompt6b.png      | Bin 0 -> 38815 bytes
+ evidence/claude_code/screenshots/prompt6c.png      | Bin 0 -> 43440 bytes
+ evidence/claude_code/screenshots/prompt7.png       | Bin 0 -> 40175 bytes
+ evidence/claude_code/screenshots/prompt8.png       | Bin 0 -> 14477 bytes
+ evidence/claude_code/screenshots/prompt8b.png      | Bin 0 -> 40380 bytes
+ evidence/claude_code/screenshots/prompt9a.png      | Bin 0 -> 50854 bytes
+ evidence/claude_code/screenshots/prompt9b.png      | Bin 0 -> 23925 bytes
+ evidence/git_log.txt                               |  60 ++++
+ evidence/pytest_output.txt                         | 308 +++++++++++++++++++++
+ 50 files changed, 1112 insertions(+), 19 deletions(-)
